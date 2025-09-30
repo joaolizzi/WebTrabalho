@@ -118,6 +118,14 @@
         padding: 18px 8px;
       }
     }
+    .explicacao {
+      background: #e3f2fd;
+      border-left: 5px solid #2980b9;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      font-size: 1.08rem;
+    }
   </style>
 </head>
 <body>
@@ -135,9 +143,15 @@
     <!-- 1. Seleção de Elementos -->
     <div class="section">
       <h2>1. Seleção de Elementos</h2>
-      <p>
-        O primeiro passo para manipular o DOM é selecionar os elementos que queremos alterar ou interagir. Existem diversos métodos para isso, sendo os mais comuns <code>getElementById</code> e <code>querySelector</code>.
-      </p>
+      <div class="explicacao">
+        <strong>O que é?</strong><br>
+        Selecionar elementos é o primeiro passo para manipular qualquer parte da página. Com a seleção, conseguimos acessar e modificar textos, estilos, atributos e até adicionar eventos.<br><br>
+        <strong>Como funciona?</strong><br>
+        - <code>getElementById</code> busca um elemento pelo seu <code>id</code> único.<br>
+        - <code>querySelector</code> permite selecionar qualquer elemento usando seletores CSS, como classes, ids ou tags.<br><br>
+        <strong>Quando usar?</strong><br>
+        Sempre que precisar alterar ou interagir com um elemento específico da página, você deve selecioná-lo primeiro.
+      </div>
       <ul>
         <li><strong>getElementById</strong>: Seleciona um elemento pelo seu atributo <code>id</code>. Retorna apenas um elemento.</li>
         <li><strong>querySelector</strong>: Seleciona o primeiro elemento que corresponde a um seletor CSS (pode ser <code>.classe</code>, <code>#id</code>, <code>tag</code>, etc).</li>
@@ -167,9 +181,16 @@ subtitulo.style.color = 'green';
     <!-- 2. Alterar Conteúdo e Estilos -->
     <div class="section">
       <h2>2. Alterar Conteúdo e Estilos</h2>
-      <p>
-        Depois de selecionar um elemento, podemos modificar seu conteúdo e aparência. Os métodos mais usados são:
-      </p>
+      <div class="explicacao">
+        <strong>O que é?</strong><br>
+        Alterar conteúdo e estilos permite atualizar informações exibidas na página e mudar a aparência dos elementos em tempo real, sem recarregar.<br><br>
+        <strong>Como funciona?</strong><br>
+        - <code>innerText</code> altera apenas o texto do elemento.<br>
+        - <code>innerHTML</code> permite inserir HTML, como negrito, itálico, listas, etc.<br>
+        - <code>style</code> modifica propriedades CSS diretamente pelo JavaScript.<br><br>
+        <strong>Quando usar?</strong><br>
+        Sempre que precisar atualizar informações, destacar algo visualmente ou responder a ações do usuário.
+      </div>
       <ul>
         <li><strong>innerText</strong>: Altera apenas o texto do elemento, ignorando qualquer HTML.</li>
         <li><strong>innerHTML</strong>: Permite inserir HTML dentro do elemento, possibilitando formatações.</li>
@@ -197,17 +218,23 @@ document.getElementById('caixa').style.backgroundColor = "lightblue";
         <p id="html">Conteúdo original</p>
         <div id="caixa" style="width:200px; height:50px; border:1px solid #b0bec5;">Caixa com estilo</div>
       </div>
-      <p>
-        Essas técnicas são essenciais para atualizar informações na tela sem recarregar a página, tornando a navegação mais fluida e moderna.
-      </p>
+      <div class="explicacao">
+        <strong>Resumo:</strong> <br>
+        Essas técnicas são essenciais para atualizar informações na tela sem recarregar a página, tornando a navegação mais fluida e moderna. Por exemplo, ao receber dados de um servidor ou ao destacar um campo preenchido corretamente.
+      </div>
     </div>
 
     <!-- 3. Eventos -->
     <div class="section">
       <h2>3. Eventos (click, keyup, submit)</h2>
-      <p>
-        Eventos são ações que ocorrem na página, como cliques, digitação ou envio de formulários. Podemos "ouvir" esses eventos e executar funções quando eles acontecem, tornando a página interativa.
-      </p>
+      <div class="explicacao">
+        <strong>O que é?</strong><br>
+        Eventos são ações que acontecem na página, como cliques, digitação, envio de formulários, entre outros. Podemos "ouvir" esses eventos e executar funções quando eles ocorrem.<br><br>
+        <strong>Como funciona?</strong><br>
+        Usamos <code>addEventListener</code> para associar uma função a um evento específico de um elemento.<br><br>
+        <strong>Quando usar?</strong><br>
+        Sempre que quiser tornar a página interativa, respondendo a ações do usuário.
+      </div>
       <ul>
         <li><strong>click</strong>: Disparado quando o usuário clica em um elemento.</li>
         <li><strong>keyup</strong>: Disparado quando o usuário solta uma tecla após digitar em um campo.</li>
@@ -218,7 +245,10 @@ document.getElementById('caixa').style.backgroundColor = "lightblue";
       </p>
 
       <h4>Evento Click</h4>
-      <p>Ao clicar no botão, um alerta é exibido na tela.</p>
+      <div class="explicacao">
+        <strong>Explicação:</strong> <br>
+        O evento <code>click</code> é um dos mais usados. Ele permite executar uma ação sempre que o usuário clicar em um botão, link ou qualquer outro elemento clicável. No exemplo, ao clicar no botão, um alerta aparece na tela.
+      </div>
       <div class="code-box">
 <code>
 document.getElementById('btnClick').addEventListener('click', function() {
@@ -231,7 +261,10 @@ document.getElementById('btnClick').addEventListener('click', function() {
       </div>
 
       <h4>Evento Keyup</h4>
-      <p>Ao digitar no campo, o texto digitado aparece logo abaixo em tempo real.</p>
+      <div class="explicacao">
+        <strong>Explicação:</strong> <br>
+        O evento <code>keyup</code> é disparado quando o usuário solta uma tecla após digitar em um campo. Isso permite, por exemplo, mostrar sugestões, validar campos em tempo real ou atualizar informações instantaneamente. No exemplo, o texto digitado aparece logo abaixo do campo.
+      </div>
       <div class="code-box">
 <code>
 document.getElementById('inputKeyup').addEventListener('keyup', function(e) {
@@ -245,7 +278,10 @@ document.getElementById('inputKeyup').addEventListener('keyup', function(e) {
       </div>
 
       <h4>Evento Submit</h4>
-      <p>Ao enviar o formulário, a página não recarrega e um alerta confirma o envio.</p>
+      <div class="explicacao">
+        <strong>Explicação:</strong> <br>
+        O evento <code>submit</code> é disparado ao enviar um formulário. Usamos <code>preventDefault()</code> para evitar que a página recarregue, permitindo validar dados ou enviar informações via JavaScript. No exemplo, um alerta confirma o envio.
+      </div>
       <div class="code-box">
 <code>
 document.getElementById('formulario').addEventListener('submit', function(e) {
@@ -260,17 +296,25 @@ document.getElementById('formulario').addEventListener('submit', function(e) {
           <button type="submit">Enviar</button>
         </form>
       </div>
-      <p>
-        O uso de eventos é fundamental para criar páginas responsivas, que reagem às ações do usuário de forma instantânea.
-      </p>
+      <div class="explicacao">
+        <strong>Resumo:</strong> <br>
+        O uso de eventos é fundamental para criar páginas responsivas, que reagem às ações do usuário de forma instantânea. Eles são a base de toda interatividade em aplicações web modernas.
+      </div>
     </div>
 
     <!-- 4. Criar e Remover Elementos -->
     <div class="section">
       <h2>4. Criar e Remover Elementos</h2>
-      <p>
-        Além de alterar elementos existentes, também podemos criar novos elementos dinamicamente e adicioná-los à página, ou remover elementos quando necessário. Isso é muito útil para listas, tabelas, cards e outros conteúdos dinâmicos.
-      </p>
+      <div class="explicacao">
+        <strong>O que é?</strong><br>
+        Criar e remover elementos dinamicamente permite que a página cresça ou diminua conforme a interação do usuário, sem precisar recarregar.<br><br>
+        <strong>Como funciona?</strong><br>
+        - <code>createElement</code> cria um novo elemento HTML.<br>
+        - <code>appendChild</code> adiciona esse elemento como filho de outro.<br>
+        - <code>removeChild</code> remove um elemento filho.<br><br>
+        <strong>Quando usar?</strong><br>
+        Sempre que precisar adicionar itens em listas, criar cards, mensagens, ou remover elementos da tela.
+      </div>
       <ul>
         <li><strong>createElement</strong>: Cria um novo elemento HTML via JavaScript.</li>
         <li><strong>appendChild</strong>: Adiciona um elemento como filho de outro elemento.</li>
@@ -294,9 +338,10 @@ document.getElementById('btnCriar').addEventListener('click', function() {
         <button id="btnCriar">Adicionar item à lista</button>
         <ul id="lista"></ul>
       </div>
-      <p>
-        Com essas técnicas, é possível criar aplicações web dinâmicas, como listas de tarefas, chats, sistemas de comentários e muito mais, tudo sem recarregar a página.
-      </p>
+      <div class="explicacao">
+        <strong>Resumo:</strong> <br>
+        Com essas técnicas, é possível criar aplicações web dinâmicas, como listas de tarefas, chats, sistemas de comentários e muito mais, tudo sem recarregar a página. Isso deixa a experiência do usuário mais fluida e moderna.
+      </div>
     </div>
 
     <div class="section" style="background:#e3f2fd;">
