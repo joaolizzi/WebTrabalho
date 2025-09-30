@@ -4,44 +4,119 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DOM e Interatividade</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: linear-gradient(120deg, #f0f4f9 0%, #e0e7ef 100%);
+      color: #222;
       margin: 0;
       padding: 0;
     }
     header {
-      background-color: #2c3e50;
+      background: linear-gradient(90deg, #2c3e50 60%, #2980b9 100%);
       color: white;
-      padding: 20px;
+      padding: 32px 20px 24px 20px;
       text-align: center;
+      box-shadow: 0 4px 16px rgba(44,62,80,0.12);
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+    header h1 {
+      margin: 0 0 8px 0;
+      font-size: 2.5rem;
+      letter-spacing: 1px;
     }
     .content {
-      padding: 20px;
+      padding: 32px 10vw 32px 10vw;
+      max-width: 900px;
+      margin: auto;
     }
     .section {
-      margin-bottom: 50px;
+      margin-bottom: 48px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(44,62,80,0.07);
+      padding: 32px 24px;
+      transition: box-shadow 0.2s;
+    }
+    .section:hover {
+      box-shadow: 0 6px 24px rgba(44,62,80,0.13);
     }
     .code-box {
-      background-color: #eee;
-      padding: 10px;
-      border-radius: 5px;
-      font-family: monospace;
-      white-space: pre-wrap;
+      background: #23272e;
+      color: #e6e6e6;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      box-shadow: 0 2px 8px rgba(44,62,80,0.08);
     }
     .example-container {
-      background-color: #fff;
-      padding: 20px;
+      background: #f8fafc;
+      padding: 20px 24px;
       margin-top: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      border: 1px solid #e0e7ef;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(44,62,80,0.04);
+      margin-bottom: 8px;
     }
-    button, input {
-      padding: 8px;
+    button, input[type="text"], input[type="submit"] {
+      padding: 10px 20px;
       margin-top: 10px;
-      font-size: 16px;
+      font-size: 1rem;
+      border-radius: 25px;
+      border: none;
+      outline: none;
+      background: linear-gradient(90deg, #2980b9 60%, #6dd5fa 100%);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+      cursor: pointer;
+    }
+    button:hover, input[type="submit"]:hover {
+      background: linear-gradient(90deg, #6dd5fa 60%, #2980b9 100%);
+      box-shadow: 0 4px 16px rgba(44,62,80,0.13);
+      transform: translateY(-2px) scale(1.03);
+    }
+    input[type="text"] {
+      background: #f0f4f9;
+      color: #222;
+      border: 1px solid #b0bec5;
+      margin-right: 8px;
+      box-shadow: none;
+      font-weight: 400;
+      transition: border 0.2s;
+    }
+    input[type="text"]:focus {
+      border: 1.5px solid #2980b9;
+      background: #fff;
+    }
+    ul#lista {
+      margin-top: 12px;
+      padding-left: 20px;
+    }
+    ul#lista li {
+      background: #e3f2fd;
+      margin-bottom: 6px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    ul#lista li:hover {
+      background: #bbdefb;
+    }
+    @media (max-width: 700px) {
+      .content {
+        padding: 16px 2vw;
+      }
+      .section {
+        padding: 18px 8px;
+      }
     }
   </style>
 </head>
@@ -50,6 +125,9 @@
   <header>
     <h1>DOM e Interatividade</h1>
     <p>Seleção, Alteração, Eventos e Manipulação de Elementos</p>
+    <p style="margin-top:18px;font-size:1.1rem;max-width:700px;margin-left:auto;margin-right:auto;">
+      O DOM (Document Object Model) é uma interface que representa documentos HTML de forma estruturada, permitindo que scripts possam acessar, modificar e interagir com os elementos da página. A manipulação do DOM é fundamental para criar páginas web dinâmicas e interativas, tornando a experiência do usuário muito mais rica.
+    </p>
   </header>
 
   <div class="content">
@@ -57,7 +135,16 @@
     <!-- 1. Seleção de Elementos -->
     <div class="section">
       <h2>1. Seleção de Elementos</h2>
-      <p>Usamos métodos como <code>getElementById</code> e <code>querySelector</code> para acessar elementos do HTML.</p>
+      <p>
+        O primeiro passo para manipular o DOM é selecionar os elementos que queremos alterar ou interagir. Existem diversos métodos para isso, sendo os mais comuns <code>getElementById</code> e <code>querySelector</code>.
+      </p>
+      <ul>
+        <li><strong>getElementById</strong>: Seleciona um elemento pelo seu atributo <code>id</code>. Retorna apenas um elemento.</li>
+        <li><strong>querySelector</strong>: Seleciona o primeiro elemento que corresponde a um seletor CSS (pode ser <code>.classe</code>, <code>#id</code>, <code>tag</code>, etc).</li>
+      </ul>
+      <p>
+        Após selecionar, podemos alterar propriedades, estilos ou adicionar eventos. Veja o exemplo abaixo, onde mudamos a cor do título e do subtítulo:
+      </p>
 
       <div class="code-box">
 <code>
@@ -80,7 +167,17 @@ subtitulo.style.color = 'green';
     <!-- 2. Alterar Conteúdo e Estilos -->
     <div class="section">
       <h2>2. Alterar Conteúdo e Estilos</h2>
-      <p>Alteramos texto e HTML usando <code>innerText</code> e <code>innerHTML</code>, e mudamos estilos com <code>style</code>.</p>
+      <p>
+        Depois de selecionar um elemento, podemos modificar seu conteúdo e aparência. Os métodos mais usados são:
+      </p>
+      <ul>
+        <li><strong>innerText</strong>: Altera apenas o texto do elemento, ignorando qualquer HTML.</li>
+        <li><strong>innerHTML</strong>: Permite inserir HTML dentro do elemento, possibilitando formatações.</li>
+        <li><strong>style</strong>: Permite alterar estilos CSS diretamente pelo JavaScript.</li>
+      </ul>
+      <p>
+        No exemplo abaixo, mudamos o texto de um parágrafo, inserimos HTML em outro e alteramos a cor de fundo de uma caixa:
+      </p>
 
       <div class="code-box">
 <code>
@@ -98,15 +195,30 @@ document.getElementById('caixa').style.backgroundColor = "lightblue";
       <div class="example-container">
         <p id="texto">Texto original</p>
         <p id="html">Conteúdo original</p>
-        <div id="caixa" style="width:200px; height:50px; border:1px solid black;">Caixa com estilo</div>
+        <div id="caixa" style="width:200px; height:50px; border:1px solid #b0bec5;">Caixa com estilo</div>
       </div>
+      <p>
+        Essas técnicas são essenciais para atualizar informações na tela sem recarregar a página, tornando a navegação mais fluida e moderna.
+      </p>
     </div>
 
     <!-- 3. Eventos -->
     <div class="section">
       <h2>3. Eventos (click, keyup, submit)</h2>
+      <p>
+        Eventos são ações que ocorrem na página, como cliques, digitação ou envio de formulários. Podemos "ouvir" esses eventos e executar funções quando eles acontecem, tornando a página interativa.
+      </p>
+      <ul>
+        <li><strong>click</strong>: Disparado quando o usuário clica em um elemento.</li>
+        <li><strong>keyup</strong>: Disparado quando o usuário solta uma tecla após digitar em um campo.</li>
+        <li><strong>submit</strong>: Disparado ao enviar um formulário.</li>
+      </ul>
+      <p>
+        Veja exemplos práticos de cada evento:
+      </p>
 
       <h4>Evento Click</h4>
+      <p>Ao clicar no botão, um alerta é exibido na tela.</p>
       <div class="code-box">
 <code>
 document.getElementById('btnClick').addEventListener('click', function() {
@@ -119,6 +231,7 @@ document.getElementById('btnClick').addEventListener('click', function() {
       </div>
 
       <h4>Evento Keyup</h4>
+      <p>Ao digitar no campo, o texto digitado aparece logo abaixo em tempo real.</p>
       <div class="code-box">
 <code>
 document.getElementById('inputKeyup').addEventListener('keyup', function(e) {
@@ -132,6 +245,7 @@ document.getElementById('inputKeyup').addEventListener('keyup', function(e) {
       </div>
 
       <h4>Evento Submit</h4>
+      <p>Ao enviar o formulário, a página não recarrega e um alerta confirma o envio.</p>
       <div class="code-box">
 <code>
 document.getElementById('formulario').addEventListener('submit', function(e) {
@@ -141,17 +255,30 @@ document.getElementById('formulario').addEventListener('submit', function(e) {
 </code>
       </div>
       <div class="example-container">
-        <form id="formulario">
+        <form id="formulario" autocomplete="off">
           <input type="text" placeholder="Seu nome">
           <button type="submit">Enviar</button>
         </form>
       </div>
+      <p>
+        O uso de eventos é fundamental para criar páginas responsivas, que reagem às ações do usuário de forma instantânea.
+      </p>
     </div>
 
     <!-- 4. Criar e Remover Elementos -->
     <div class="section">
       <h2>4. Criar e Remover Elementos</h2>
-      <p>Com <code>createElement</code> e <code>appendChild</code> criamos elementos dinamicamente.</p>
+      <p>
+        Além de alterar elementos existentes, também podemos criar novos elementos dinamicamente e adicioná-los à página, ou remover elementos quando necessário. Isso é muito útil para listas, tabelas, cards e outros conteúdos dinâmicos.
+      </p>
+      <ul>
+        <li><strong>createElement</strong>: Cria um novo elemento HTML via JavaScript.</li>
+        <li><strong>appendChild</strong>: Adiciona um elemento como filho de outro elemento.</li>
+        <li><strong>removeChild</strong>: Remove um elemento filho.</li>
+      </ul>
+      <p>
+        No exemplo abaixo, ao clicar no botão, um novo item é adicionado à lista:
+      </p>
 
       <div class="code-box">
 <code>
@@ -167,6 +294,19 @@ document.getElementById('btnCriar').addEventListener('click', function() {
         <button id="btnCriar">Adicionar item à lista</button>
         <ul id="lista"></ul>
       </div>
+      <p>
+        Com essas técnicas, é possível criar aplicações web dinâmicas, como listas de tarefas, chats, sistemas de comentários e muito mais, tudo sem recarregar a página.
+      </p>
+    </div>
+
+    <div class="section" style="background:#e3f2fd;">
+      <h2>Resumo</h2>
+      <p>
+        Manipular o DOM é uma das habilidades mais importantes para quem desenvolve para web. Com a seleção de elementos, alteração de conteúdo e estilos, uso de eventos e criação dinâmica de elementos, é possível transformar páginas estáticas em experiências ricas e interativas para o usuário.
+      </p>
+      <p>
+        Pratique bastante esses conceitos e experimente criar suas próprias interações para fixar o aprendizado!
+      </p>
     </div>
   </div>
 
