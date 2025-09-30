@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM e Interatividade</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .content {
+      padding: 20px;
+    }
+    .section {
+      margin-bottom: 50px;
+    }
+    .code-box {
+      background-color: #eee;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+    .example-container {
+      background-color: #fff;
+      padding: 20px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button, input {
+      padding: 8px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>DOM e Interatividade</h1>
+    <p>Seleção, Alteração, Eventos e Manipulação de Elementos</p>
+  </header>
+
+  <div class="content">
+
+    <!-- 1. Seleção de Elementos -->
+    <div class="section">
+      <h2>1. Seleção de Elementos</h2>
+      <p>Usamos métodos como <code>getElementById</code> e <code>querySelector</code> para acessar elementos do HTML.</p>
+
+      <div class="code-box">
+<code>
+// Usando getElementById
+let titulo = document.getElementById('titulo');
+titulo.style.color = 'blue';
+
+// Usando querySelector
+let subtitulo = document.querySelector('.subtitulo');
+subtitulo.style.color = 'green';
+</code>
+      </div>
+
+      <div class="example-container">
+        <h3 id="titulo">Título com ID</h3>
+        <h4 class="subtitulo">Subtítulo com classe</h4>
+      </div>
+    </div>
+
+    <!-- 2. Alterar Conteúdo e Estilos -->
+    <div class="section">
+      <h2>2. Alterar Conteúdo e Estilos</h2>
+      <p>Alteramos texto e HTML usando <code>innerText</code> e <code>innerHTML</code>, e mudamos estilos com <code>style</code>.</p>
+
+      <div class="code-box">
+<code>
+// innerText
+document.getElementById('texto').innerText = "Texto alterado!";
+
+// innerHTML
+document.getElementById('html').innerHTML = "&lt;strong&gt;HTML alterado com negrito&lt;/strong&gt;";
+
+// style
+document.getElementById('caixa').style.backgroundColor = "lightblue";
+</code>
+      </div>
+
+      <div class="example-container">
+        <p id="texto">Texto original</p>
+        <p id="html">Conteúdo original</p>
+        <div id="caixa" style="width:200px; height:50px; border:1px solid black;">Caixa com estilo</div>
+      </div>
+    </div>
+
+    <!-- 3. Eventos -->
+    <div class="section">
+      <h2>3. Eventos (click, keyup, submit)</h2>
+
+      <h4>Evento Click</h4>
+      <div class="code-box">
+<code>
+document.getElementById('btnClick').addEventListener('click', function() {
+  alert("Você clicou no botão!");
+});
+</code>
+      </div>
+      <div class="example-container">
+        <button id="btnClick">Clique aqui</button>
+      </div>
+
+      <h4>Evento Keyup</h4>
+      <div class="code-box">
+<code>
+document.getElementById('inputKeyup').addEventListener('keyup', function(e) {
+  document.getElementById('resultadoKeyup').innerText = "Você digitou: " + e.target.value;
+});
+</code>
+      </div>
+      <div class="example-container">
+        <input type="text" id="inputKeyup" placeholder="Digite algo">
+        <p id="resultadoKeyup"></p>
+      </div>
+
+      <h4>Evento Submit</h4>
+      <div class="code-box">
+<code>
+document.getElementById('formulario').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert("Formulário enviado com sucesso!");
+});
+</code>
+      </div>
+      <div class="example-container">
+        <form id="formulario">
+          <input type="text" placeholder="Seu nome">
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 4. Criar e Remover Elementos -->
+    <div class="section">
+      <h2>4. Criar e Remover Elementos</h2>
+      <p>Com <code>createElement</code> e <code>appendChild</code> criamos elementos dinamicamente.</p>
+
+      <div class="code-box">
+<code>
+document.getElementById('btnCriar').addEventListener('click', function() {
+  let novoItem = document.createElement('li');
+  novoItem.innerText = "Novo item";
+  document.getElementById('lista').appendChild(novoItem);
+});
+</code>
+      </div>
+
+      <div class="example-container">
+        <button id="btnCriar">Adicionar item à lista</button>
+        <ul id="lista"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1. Seleção
+    document.getElementById('titulo').style.color = 'blue';
+    document.querySelector('.subtitulo').style.color = 'green';
+
+    // 2. Alterar conteúdo e estilo
+    document.getElementById('texto').innerText = "Texto alterado!";
+    document.getElementById('html').innerHTML = "<strong>HTML alterado com negrito</strong>";
+    document.getElementById('caixa').style.backgroundColor = "lightblue";
+
+    // 3. Eventos
+    document.getElementById('btnClick').addEventListener('click', function() {
+      alert("Você clicou no botão!");
+    });
+
+    document.getElementById('inputKeyup').addEventListener('keyup', function(e) {
+      document.getElementById('resultadoKeyup').innerText = "Você digitou: " + e.target.value;
+    });
+
+    document.getElementById('formulario').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert("Formulário enviado com sucesso!");
+    });
+
+    // 4. Criar e remover elementos
+    document.getElementById('btnCriar').addEventListener('click', function() {
+      let novoItem = document.createElement('li');
+      novoItem.innerText = "Novo item";
+      document.getElementById('lista').appendChild(novoItem);
+    });
+  </script>
+
+</body>
+</html>
