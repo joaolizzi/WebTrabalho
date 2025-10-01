@@ -126,6 +126,32 @@
       margin-bottom: 18px;
       font-size: 1.08rem;
     }
+    .selector-demo-btns button {
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    .selector-demo-result {
+      margin-top: 12px;
+      background: #e3f2fd;
+      border-radius: 8px;
+      padding: 10px 16px;
+      min-height: 32px;
+      font-size: 1.08rem;
+      border: 1px solid #b0bec5;
+      color: #222;
+      word-break: break-all;
+    }
+    .selector-demo-target {
+      background: #fffde7;
+      border: 2px solid #fbc02d;
+      border-radius: 6px;
+      padding: 2px 6px;
+      display: inline-block;
+      margin: 2px 2px;
+      font-weight: bold;
+      color: #b8860b;
+      transition: background 0.2s, border 0.2s;
+    }
   </style>
 </head>
 <body>
@@ -147,34 +173,43 @@
         <strong>O que é?</strong><br>
         Selecionar elementos é o primeiro passo para manipular qualquer parte da página. Com a seleção, conseguimos acessar e modificar textos, estilos, atributos e até adicionar eventos.<br><br>
         <strong>Como funciona?</strong><br>
-        - <code>getElementById</code> busca um elemento pelo seu <code>id</code> único.<br>
-        - <code>querySelector</code> permite selecionar qualquer elemento usando seletores CSS, como classes, ids ou tags.<br><br>
-        <strong>Quando usar?</strong><br>
-        Sempre que precisar alterar ou interagir com um elemento específico da página, você deve selecioná-lo primeiro.
-      </div>
-      <ul>
-        <li><strong>getElementById</strong>: Seleciona um elemento pelo seu atributo <code>id</code>. Retorna apenas um elemento.</li>
-        <li><strong>querySelector</strong>: Seleciona o primeiro elemento que corresponde a um seletor CSS (pode ser <code>.classe</code>, <code>#id</code>, <code>tag</code>, etc).</li>
-      </ul>
-      <p>
-        Após selecionar, podemos alterar propriedades, estilos ou adicionar eventos. Veja o exemplo abaixo, onde mudamos a cor do título e do subtítulo:
-      </p>
-
-      <div class="code-box">
-<code>
-// Usando getElementById
-let titulo = document.getElementById('titulo');
-titulo.style.color = 'blue';
-
-// Usando querySelector
-let subtitulo = document.querySelector('.subtitulo');
-subtitulo.style.color = 'green';
-</code>
+        Existem diferentes métodos para selecionar elementos no DOM. Veja as principais diferenças:
+        <ul>
+          <li><strong>getElementById</strong>: retorna <b>um único elemento</b> com o <code>id</code> informado.</li>
+          <li><strong>getElementsByClassName</strong>: retorna uma <b>coleção (HTMLCollection)</b> com todos os elementos que possuem a classe informada.</li>
+          <li><strong>getElementsByTagName</strong>: retorna uma <b>coleção (HTMLCollection)</b> com todos os elementos de uma determinada tag.</li>
+          <li><strong>querySelector</strong>: retorna <b>apenas o primeiro</b> elemento que corresponde ao seletor CSS informado.</li>
+          <li><strong>querySelectorAll</strong>: retorna <b>todos</b> os elementos que correspondem ao seletor CSS, em uma <b>NodeList</b>.</li>
+        </ul>
+        <strong>Destaques:</strong>
+        <ul>
+          <li><b>Elemento único vs. Coleção:</b> <code>getElementById</code> e <code>querySelector</code> retornam apenas um elemento. Os outros retornam coleções.</li>
+          <li><b>Seletores CSS:</b> <code>querySelector</code> e <code>querySelectorAll</code> aceitam qualquer seletor CSS.</li>
+          <li><b>HTMLCollection vs NodeList:</b> <code>getElementsByClassName</code> e <code>getElementsByTagName</code> retornam <b>HTMLCollection</b> (ao vivo), enquanto <code>querySelectorAll</code> retorna <b>NodeList</b> (estática).</li>
+        </ul>
       </div>
 
-      <div class="example-container">
-        <h3 id="titulo">Título com ID</h3>
-        <h4 class="subtitulo">Subtítulo com classe</h4>
+      <div class="explicacao">
+        <strong>Demonstração ao vivo:</strong> <br>
+        Clique em cada botão para ver o que é selecionado e como o retorno muda de acordo com o seletor utilizado.
+      </div>
+
+      <div class="selector-demo-btns">
+        <button onclick="demoSelector('id')">getElementById</button>
+        <button onclick="demoSelector('class')">getElementsByClassName</button>
+        <button onclick="demoSelector('tag')">getElementsByTagName</button>
+        <button onclick="demoSelector('qs')">querySelector</button>
+        <button onclick="demoSelector('qsa')">querySelectorAll</button>
+      </div>
+      <div class="selector-demo-result" id="selectorDemoResult">
+        <em>O resultado da seleção aparecerá aqui.</em>
+      </div>
+      <div style="margin-top:18px;">
+        <span id="demo-id" class="selector-demo-target">ID: demo-id</span>
+        <span class="demo-class selector-demo-target">Classe: demo-class</span>
+        <span class="demo-class selector-demo-target">Classe: demo-class</span>
+        <span class="selector-demo-target">Tag: span</span>
+        <span class="demo-class selector-demo-target">Classe: demo-class</span>
       </div>
     </div>
 
@@ -385,6 +420,56 @@ document.getElementById('btnCriar').addEventListener('click', function() {
       novoItem.innerText = "Novo item";
       document.getElementById('lista').appendChild(novoItem);
     });
+
+    // Demonstração dos seletores
+    function demoSelector(tipo) {
+      // Limpa destaques anteriores
+      document.querySelectorAll('.selector-demo-target').forEach(el => {
+        el.style.background = '';
+        el.style.borderColor = '#fbc02d';
+      });
+
+      let result = '';
+      let highlight = [];
+      if (tipo === 'id') {
+        const el = document.getElementById('demo-id');
+        result = 'getElementById("demo-id") retorna: ' + (el ? `<span class="selector-demo-target">[id="demo-id"]</span>` : 'null');
+        highlight = el ? [el] : [];
+      } else if (tipo === 'class') {
+        const els = document.getElementsByClassName('demo-class');
+        result = 'getElementsByClassName("demo-class") retorna uma HTMLCollection com ' + els.length + ' elementos:<br>';
+        for (let i = 0; i < els.length; i++) {
+          result += `<span class="selector-demo-target">[class="demo-class"] #${i+1}</span> `;
+          highlight.push(els[i]);
+        }
+      } else if (tipo === 'tag') {
+        const els = document.getElementsByTagName('span');
+        result = 'getElementsByTagName("span") retorna uma HTMLCollection com ' + els.length + ' elementos:<br>';
+        for (let i = 0; i < els.length; i++) {
+          result += `<span class="selector-demo-target">[tag=span] #${i+1}</span> `;
+          highlight.push(els[i]);
+        }
+      } else if (tipo === 'qs') {
+        const el = document.querySelector('.demo-class');
+        result = 'querySelector(".demo-class") retorna o primeiro elemento com a classe demo-class:<br>' +
+          (el ? `<span class="selector-demo-target">[class="demo-class"]</span>` : 'null');
+        highlight = el ? [el] : [];
+      } else if (tipo === 'qsa') {
+        const els = document.querySelectorAll('.demo-class');
+        result = 'querySelectorAll(".demo-class") retorna uma NodeList com ' + els.length + ' elementos:<br>';
+        els.forEach((el, i) => {
+          result += `<span class="selector-demo-target">[class="demo-class"] #${i+1}</span> `;
+          highlight.push(el);
+        });
+      }
+      document.getElementById('selectorDemoResult').innerHTML = result;
+
+      // Destaca elementos selecionados
+      highlight.forEach(el => {
+        el.style.background = '#fffde7';
+        el.style.borderColor = '#fbc02d';
+      });
+    }
   </script>
 
 </body>
